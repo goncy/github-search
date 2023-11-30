@@ -1,5 +1,7 @@
 import {Suspense} from "react";
 
+import {RepositoryLanguages} from "../_components/repository-languages";
+
 export interface Repository {
   name: string;
   description: string;
@@ -7,6 +9,7 @@ export interface Repository {
   id: string;
   stargazers_count: number;
   forks_count: number;
+  owner: Owner;
 }
 
 export interface Owner {
@@ -65,7 +68,9 @@ async function StarredRepositories({user}: {user: string}) {
             <p className="text-gray-500 dark:text-gray-400">{repository.description}</p>
             <div className="mt-4 flex items-center space-x-6">
               <div className="focus:ring-ring bg-primary text-primary-foreground hover:bg-primary/80 inline-flex items-center rounded-full border border-transparent px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2">
-                JavaScript
+                <Suspense fallback={<div className="h-4 w-3/4 rounded bg-gray-200 " />}>
+                  <RepositoryLanguages repository={repository.name} user={repository.owner.login} />
+                </Suspense>
               </div>
               <div className="flex items-center space-x-2">
                 <svg
@@ -130,7 +135,9 @@ async function TopRepositories({user}: {user: string}) {
             <p className="text-gray-500 dark:text-gray-400">{repository.description}</p>
             <div className="mt-4 flex items-center space-x-6">
               <div className="focus:ring-ring bg-primary text-primary-foreground hover:bg-primary/80 inline-flex items-center rounded-full border border-transparent px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2">
-                JavaScript
+                <Suspense fallback={<div className="h-4 w-3/4 rounded bg-gray-200 " />}>
+                  <RepositoryLanguages repository={repository.name} user={user} />
+                </Suspense>
               </div>
               <div className="flex items-center space-x-2">
                 <svg
